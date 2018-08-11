@@ -1,4 +1,4 @@
-# Deep Reinforcement Learning -Navigation DQN in Pytorch
+# Deep Reinforcement Learning - Navigation - DQN in Pytorch
 ## Introduction
 The environment is a square world filled with yellow and blue bananas. The goal of the agent is to collect yellow bananas while avoiding blue bananas.
 
