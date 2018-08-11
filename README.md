@@ -16,16 +16,21 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 ### Dependencies
 - Python 3.6 or higher (https://www.anaconda.com/download) or (https://www.python.org/downloads/) 
 - Optional but recommended Create (and activate) a new environment with Python 3.6.
-    Linux or Mac:
-        conda create --name drlnd python=3.6
-        source activate drlnd
-
-    Windows:
-        conda create --name drlnd python=3.6 
-        activate drlnd
-
+    Create (and activate) a new environment with Python 3.6.
+    - __Linux__ or __Mac__: 
+	```bash
+	conda create --name drlnd python=3.6
+	source activate drlnd
+	```
+	- __Windows__: 
+	```bash
+	conda create --name drlnd python=3.6 
+	activate drlnd
+	```
 - Install requirements:
-    pip install .
+```bash
+	pip install .
+	```
 
 - Download the correct Unity Environment for OS and copy into same directory as results.ipynb
     - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
