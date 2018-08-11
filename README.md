@@ -1,5 +1,5 @@
-## Deep Reinforcement Learning -Navigation DQN in Pytorch
-#Introduction
+# Deep Reinforcement Learning -Navigation DQN in Pytorch
+## Introduction
 The environment is a square world filled with yellow and blue bananas. The goal of the agent is to collect yellow bananas while avoiding blue bananas.
 
 A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana. Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.
@@ -11,9 +11,9 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
     2 - turn left.
     3 - turn right.
 
-#Getting Started
+## Getting Started
 
-#Dependencies
+### Dependencies
 - Python 3.6 or higher (https://www.anaconda.com/download) or (https://www.python.org/downloads/) 
 - Optional but recommended Create (and activate) a new environment with Python 3.6.
     Linux or Mac:
@@ -36,7 +36,7 @@ pip install .
     - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux_NoVis.zip)
 
 
-#Instructions
+## Instructions
 
 run jupyter notebook and open results.ipynb and run code cells in order following the directions supplied
 
