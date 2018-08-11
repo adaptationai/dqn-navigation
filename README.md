@@ -28,7 +28,7 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 	activate drlnd
 	```
 - Install requirements:
-```bash
+    ```bash
 	pip install .
 	```
 
