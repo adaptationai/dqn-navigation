@@ -29,6 +29,8 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 	```
 - Install requirements:
     ```bash
+    clone git https://github.com/adaptationai/dqn-navigation.git
+    cd dqn-navigation
 	pip install .
 	```
 
@@ -42,5 +44,9 @@ The state space has 37 dimensions and contains the agent's velocity, along with 
 
 ## Instructions
 
-run jupyter notebook and open results.ipynb and run code cells in order following the directions supplied
+- Run:
+    ```bash
+	jupyter notebook
+	```
+    Open results.ipynb and run code cells in order
 
