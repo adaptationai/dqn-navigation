@@ -15,11 +15,11 @@ class DQN(nn.Module):
         """Initialize parameters and build model.
         Params
         ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
+            input_dims (int): Dimension of each state
+            output_dims (int): Dimension of each action
             seed (int): Random seed
-            fc1_units (int): Number of nodes in first hidden layer
-            fc2_units (int): Number of nodes in second hidden layer
+            hidden_dim (int): Number of nodes in each hidden layer
+            
         """
         super(DQN, self).__init__()
         # build model
@@ -27,7 +27,7 @@ class DQN(nn.Module):
         self.output_dims = output_dims
         self.hidden_dim = hidden_dim
        
-        self.seed = torch.manual_seed(seed)
+        #self.seed = torch.manual_seed(seed)
         self.fc1 = nn.Linear(self.input_dims, self.hidden_dim)
         self.fc2 = nn.Linear(self.hidden_dim, self.hidden_dim)
         self.fc3 = nn.Linear(self.hidden_dim, output_dims)
@@ -40,6 +40,16 @@ class DQN(nn.Module):
 
 class DuelingDQN(nn.Module):
     def __init__(self, input_dims, output_dims, seed,  hidden_dim=64, dueling_type="avg"):
+        """Initialize parameters and build model.
+        Params
+        ======
+            input_dims (int): Dimension of each state
+            output_dims (int): Dimension of each action
+            seed (int): Random seed
+            hidden_dim (int): Number of nodes in each hidden layer
+            dueling_type (string): Type of dueling network
+            
+        """
         super(DuelingDQN, self).__init__()
         # build model
         self.input_dims = input_dims
@@ -47,13 +57,14 @@ class DuelingDQN(nn.Module):
         self.hidden_dim = hidden_dim
         self.dueling_type = dueling_type
         
-        self.seed = torch.manual_seed(seed)
+        #self.seed = torch.manual_seed(seed)
         self.fc1 = nn.Linear(self.input_dims, self.hidden_dim)
         self.fc2 = nn.Linear(self.hidden_dim, self.hidden_dim)
+        self.fc3 = nn.Linear(self.hidden_dim, self.hidden_dim)
      
         
         #Duleing [0]: V(s); [1,:]: A(s, a)
-        self.fc3 = nn.Linear(self.hidden_dim, self.output_dims + 1)
+        self.fc4 = nn.Linear(self.hidden_dim, self.output_dims + 1)
         self.v_ind = torch.LongTensor(self.output_dims).fill_(0).unsqueeze(0)
         self.a_ind = torch.LongTensor(np.arange(1, self.output_dims + 1)).unsqueeze(0)
         
@@ -62,8 +73,9 @@ class DuelingDQN(nn.Module):
         x = x.view(x.size(0), self.input_dims)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+        x = F.relu(self.fc2(x))
         
-        x = self.fc3(x.view(x.size(0), -1))
+        x = self.fc4(x.view(x.size(0), -1))
         v_ind_vb = Variable(self.v_ind)
         a_ind_vb = Variable(self.a_ind)
         

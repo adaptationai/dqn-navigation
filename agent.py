@@ -20,9 +20,8 @@ TAU = 0.001              # for soft update of target parameters
 LR = 0.0005              # learning rate 
 UPDATE_EVERY = 4        # how often to update the network
 
-#USE_CUDA = torch.cuda.is_available()
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-#Variable = lambda *args, **kwargs: autograd.Variable(*args, **kwargs).cuda() if USE_CUDA else autograd.Variable(*args, **kwargs)
 
 class Agent():
     """Interacts with and learns from the environment."""
@@ -100,10 +99,9 @@ class Agent():
         """
         states, actions, rewards, next_states, dones = experiences
 
-        ## TODO: compute and minimize the loss
 
-        # get the Q values for best actions in next_state
-        # based off the current Q network
+        # Q values for best actions in next_state
+        # from current Q network
         # max(Q(s', a', theta_i)) wrt a'
         if self.network == "double" or "duel":
             Q_locals = self.qnetwork_local(next_states).detach()
