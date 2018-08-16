@@ -19,6 +19,7 @@ GAMMA = 0.99            # discount factor
 TAU = 0.001              # for soft update of target parameters
 LR = 0.0005              # learning rate 
 UPDATE_EVERY = 4        # how often to update the network
+TARGET_UPDATE = 1
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -39,6 +40,7 @@ class Agent():
         self.action_size = action_size
         self.seed = random.seed(seed)
         self.network = network
+        
 
         # Q-Network
         if self.network == "duel":
@@ -56,7 +58,7 @@ class Agent():
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
     
-    def step(self, state, action, reward, next_state, done):
+    def step(self, state, action, reward, next_state, done, count):
         # Save experience in replay memory
         self.memory.add(state, action, reward, next_state, done)
         
@@ -66,7 +68,7 @@ class Agent():
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > BATCH_SIZE:
                 experiences = self.memory.sample()
-                self.learn(experiences, GAMMA)
+                self.learn(experiences, GAMMA, count)
 
     def act(self, state, eps=0.):
         """Returns actions for given state as per current policy.
@@ -90,7 +92,7 @@ class Agent():
                 return random.choice(np.arange(self.action_size))
 
     
-    def learn(self, experiences, gamma):
+    def learn(self, experiences, gamma, count):
         """Update value parameters using given batch of experience tuples.
         Params
         ======
@@ -126,6 +128,7 @@ class Agent():
         self.optimizer.step()
 
         # ------------------- update target network ------------------- #
+        #if count >= TARGET_UPDATE:
         self.soft_update(self.qnetwork_local, self.qnetwork_target, TAU)
 
     def soft_update(self, local_model, target_model, tau):

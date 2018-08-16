@@ -36,6 +36,7 @@ class DQN(nn.Module):
         """Build a network that maps state -> action values."""
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+      
         return self.fc3(x)
 
 class DuelingDQN(nn.Module):
@@ -60,11 +61,9 @@ class DuelingDQN(nn.Module):
         #self.seed = torch.manual_seed(seed)
         self.fc1 = nn.Linear(self.input_dims, self.hidden_dim)
         self.fc2 = nn.Linear(self.hidden_dim, self.hidden_dim)
-        self.fc3 = nn.Linear(self.hidden_dim, self.hidden_dim)
      
-        
         #Duleing [0]: V(s); [1,:]: A(s, a)
-        self.fc4 = nn.Linear(self.hidden_dim, self.output_dims + 1)
+        self.fc3 = nn.Linear(self.hidden_dim, self.output_dims + 1)
         self.v_ind = torch.LongTensor(self.output_dims).fill_(0).unsqueeze(0)
         self.a_ind = torch.LongTensor(np.arange(1, self.output_dims + 1)).unsqueeze(0)
         
@@ -73,9 +72,8 @@ class DuelingDQN(nn.Module):
         x = x.view(x.size(0), self.input_dims)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = F.relu(self.fc2(x))
         
-        x = self.fc4(x.view(x.size(0), -1))
+        x = self.fc3(x.view(x.size(0), -1))
         v_ind_vb = Variable(self.v_ind)
         a_ind_vb = Variable(self.a_ind)
         
