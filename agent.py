@@ -104,13 +104,13 @@ class Agent():
 
         # Q values for best actions in next_state
         # from current Q network
-        # max(Q(s', a', theta_i)) wrt a'
+        
         if self.network == "double" or "duel":
-            Q_locals = self.qnetwork_local(next_states).detach()
-            _, actions_prime = Q_locals.max(1)
+            Q_L = self.qnetwork_local(next_states).detach()
+            _, actions_prime = Q_L.max(1)
 
         # get Q values from frozen network for next state and chosen action
-        # Q(s',argmax(Q(s',a', theta_i), theta_i_frozen)) (argmax wrt a')
+        
         Q_targets_next = self.qnetwork_target(next_states).detach()
         Q_targets_next_s_a_prime = Q_targets_next.gather(1, actions_prime.unsqueeze(1))
 
@@ -130,7 +130,8 @@ class Agent():
         # ------------------- update target network ------------------- #
         #if count >= TARGET_UPDATE:
         self.soft_update(self.qnetwork_local, self.qnetwork_target, TAU)
-
+        
+  
     def soft_update(self, local_model, target_model, tau):
         """Soft update model parameters.
         θ_target = τ*θ_local + (1 - τ)*θ_target
